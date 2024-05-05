@@ -1,4 +1,4 @@
-package br.com.eduardomuchak.descomplica.model;
+package br.com.eduardomuchak.descomplica.api.v1.model;
 
 import jakarta.persistence.*;
 import lombok.*;

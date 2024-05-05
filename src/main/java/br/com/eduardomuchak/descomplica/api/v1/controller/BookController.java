@@ -1,7 +1,8 @@
-package br.com.eduardomuchak.descomplica.controller;
+package br.com.eduardomuchak.descomplica.api.v1.controller;
 
-import br.com.eduardomuchak.descomplica.model.Book;
-import br.com.eduardomuchak.descomplica.repository.BookRepository;
+import br.com.eduardomuchak.descomplica.api.v1.model.Book;
+import br.com.eduardomuchak.descomplica.api.v1.openapi.BookControllerOpenAPI;
+import br.com.eduardomuchak.descomplica.api.v1.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class BookController {
+public class BookController implements BookControllerOpenAPI {
 
     @Autowired
     BookRepository bookRepository;
 
+    @Override
     @GetMapping("/getAllBooks")
     public ResponseEntity<List<Book>> getAllBooks() {
         try {
@@ -33,6 +35,7 @@ public class BookController {
         }
     }
 
+    @Override
     @GetMapping("/getBookById/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         Optional<Book> bookObj = bookRepository.findById(id);
@@ -43,6 +46,7 @@ public class BookController {
         }
     }
 
+    @Override
     @PostMapping("/addBook")
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
         try {
@@ -53,6 +57,7 @@ public class BookController {
         }
     }
 
+    @Override
     @PostMapping("/updateBook/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
         try {
@@ -72,6 +77,7 @@ public class BookController {
         }
     }
 
+    @Override
     @DeleteMapping("/deleteBookById/{id}")
     public ResponseEntity<HttpStatus> deleteBook(@PathVariable Long id) {
         try {
@@ -81,6 +87,8 @@ public class BookController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
     @DeleteMapping("/deleteAllBooks")
     public ResponseEntity<HttpStatus> deleteAllBooks() {
         try {

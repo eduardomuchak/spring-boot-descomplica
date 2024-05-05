@@ -1,7 +1,7 @@
-package br.com.eduardomuchak.descomplica.repository;
+package br.com.eduardomuchak.descomplica.api.v1.repository;
 
 
-import br.com.eduardomuchak.descomplica.model.Book;
+import br.com.eduardomuchak.descomplica.api.v1.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
