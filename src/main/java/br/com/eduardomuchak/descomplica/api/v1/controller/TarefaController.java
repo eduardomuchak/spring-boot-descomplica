@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/tarefas")
+@RequestMapping("/api")
 public class TarefaController implements TarefaControllerOpenAPI {
 
     @Autowired
     private TarefaRepository tarefaRepository;
 
     @Override
-    @GetMapping
+    @GetMapping("/getAllTarefas")
     public ResponseEntity<List<Tarefa>> getAllTarefas() {
         List<Tarefa> tarefas = tarefaRepository.findAll();
         return new ResponseEntity<>(tarefas, HttpStatus.OK);
     }
 
     @Override
-    @GetMapping("/{id}")
+    @GetMapping("/getTarefaById/{id}")
     public ResponseEntity<Tarefa> getTarefaById(@PathVariable Long id) {
         Tarefa tarefa = tarefaRepository.findById(id).orElse(null);
         if (tarefa != null) {
@@ -36,14 +36,14 @@ public class TarefaController implements TarefaControllerOpenAPI {
     }
 
     @Override
-    @PostMapping
+    @PostMapping("/addTarefa")
     public ResponseEntity<Tarefa> addTarefa(@RequestBody Tarefa tarefa) {
         Tarefa savedTarefa = tarefaRepository.save(tarefa);
         return new ResponseEntity<>(savedTarefa, HttpStatus.CREATED);
     }
 
     @Override
-    @PutMapping("/{id}")
+    @PutMapping("/updateTarefa/{id}")
     public ResponseEntity<Tarefa> updateTarefa(@PathVariable Long id, @RequestBody Tarefa tarefa) {
         tarefa.setId(id);
         Tarefa updatedTarefa = tarefaRepository.save(tarefa);
@@ -51,7 +51,7 @@ public class TarefaController implements TarefaControllerOpenAPI {
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteTarefaById/{id}")
     public ResponseEntity<HttpStatus> deleteTarefa(@PathVariable Long id) {
         tarefaRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

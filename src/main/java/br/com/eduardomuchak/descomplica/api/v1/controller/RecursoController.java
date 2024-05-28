@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/recursos")
+@RequestMapping("/api")
 public class RecursoController implements RecursoControllerOpenAPI {
 
     @Autowired
     private RecursoRepository recursoRepository;
 
     @Override
-    @GetMapping
+    @GetMapping("/getAllRecursos")
     public ResponseEntity<List<Recurso>> getAllRecursos() {
         List<Recurso> recursos = recursoRepository.findAll();
         return new ResponseEntity<>(recursos, HttpStatus.OK);
     }
 
     @Override
-    @GetMapping("/{id}")
+    @GetMapping("/getRecursoById/{id}")
     public ResponseEntity<Recurso> getRecursoById(@PathVariable Long id) {
         Recurso recurso = recursoRepository.findById(id).orElse(null);
         if (recurso != null) {
@@ -42,14 +42,14 @@ public class RecursoController implements RecursoControllerOpenAPI {
     }
 
     @Override
-    @PostMapping
+    @PostMapping("/addRecurso")
     public ResponseEntity<Recurso> addRecurso(@RequestBody Recurso recurso) {
         Recurso savedRecurso = recursoRepository.save(recurso);
         return new ResponseEntity<>(savedRecurso, HttpStatus.CREATED);
     }
 
     @Override
-    @PutMapping("/{id}")
+    @PutMapping("/updateRecurso/{id}")
     public ResponseEntity<Recurso> updateRecurso(@PathVariable Long id, @RequestBody Recurso recurso) {
         recurso.setId(id);
         Recurso updatedRecurso = recursoRepository.save(recurso);
@@ -57,7 +57,7 @@ public class RecursoController implements RecursoControllerOpenAPI {
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteRecursoById/{id}")
     public ResponseEntity<HttpStatus> deleteRecurso(@PathVariable Long id) {
         recursoRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
