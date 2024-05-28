@@ -51,18 +51,10 @@ public class ProjetoController implements ProjetoControllerOpenAPI {
         }
     }
 
-    @Override
-    @GetMapping("/getProjetoByDescricao/{descricao}")
+    @GetMapping("/search/descricao/{descricao}")
     public ResponseEntity<List<Projeto>> getProjetoByDescricao(@PathVariable String descricao) {
-        logger.info("Searching for projects with description: {}", descricao);
         List<Projeto> projetos = projetoRepository.findByDescricao(descricao);
-        if (!projetos.isEmpty()) {
-            logger.info("Found {} projects with description: {}", projetos.size(), descricao);
-            return new ResponseEntity<>(projetos, HttpStatus.OK);
-        } else {
-            logger.info("No projects found with description: {}", descricao);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(projetos, HttpStatus.OK);
     }
 
     @Override

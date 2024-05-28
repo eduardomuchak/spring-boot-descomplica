@@ -6,7 +6,7 @@ import io.swagger.v3.oas.models.tags.Tag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
+import java.util.Arrays;
 
 @Configuration
 public class SpringDocConfig {
@@ -18,10 +18,12 @@ public class SpringDocConfig {
                         .title("API Faculdade Descomplica 2024")
                         .version("v1")
                         .description("REST API para atividade do curso de Análise e Desenvolvimento de Sistemas da Faculdade Descomplica 2024")
-                ).tags(
-                        Collections.singletonList(
-                                new Tag().name("Books").description("Operações relacionadas a livros")
-                        )
-                );
+                )
+                .tags(Arrays.asList(
+                        new Tag().name("Projetos").description("Operações relacionadas a projetos"),
+                        new Tag().name("Tarefas").description("Operações relacionadas a tarefas"),
+                        new Tag().name("Recursos").description("Operações relacionadas a recursos"),
+                        new Tag().name("Books").description("Operações relacionadas a livros")
+                ));
     }
 }
